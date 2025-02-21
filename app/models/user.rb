@@ -8,6 +8,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-  has_many :todo_lists
+  has_many :todo_lists, dependent: :destroy
   has_many :todos, through: :todo_lists
+  has_many :collaborations, dependent: :destroy
+  has_many :collaborated_todo_lists, through: :collaborations, source: :todo_list
+
+  def admin?
+    admin
+  end
 end

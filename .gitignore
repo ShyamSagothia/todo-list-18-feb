@@ -1,0 +1,69 @@
+# Ignore bundler config
+/.bundle
+/tmp/cache/bootsnap/load-path-cache/
+/tmp
+/log
+
+# Ignore system-specific files
+*.rbc
+*.sassc
+.sass-cache/
+.capistrano
+.rvmrc
+.env
+.env.*.local
+node_modules/
+yarn-error.log
+
+# Ignore database files
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/structure.sql
+/db/schema.rb
+
+# Ignore byebug history
+.byebug_history
+
+# Ignore credentials
+/config/master.key
+/config/credentials.yml.enc
+
+# Ignore compiled assets
+/public/assets
+/public/packs
+/public/packs-test
+/node_modules
+/vendor/bundle
+/vendor/cache
+/vendor/assets
+/coverage
+/spec/tmp
+/cache
+
+# Ignore Spring stuff
+/spring/*.pid
+
+# Ignore dotenv environment variables
+/.env
+/.env.development.local
+/.env.test.local
+/.env.production.local
+
+# Ignore VSCode settings
+.vscode/
+
+# Ignore RubyMine project files
+.idea/
+
+# Ignore test artifacts
+/spec/examples.txt
+
+# Ignore simplecov test coverage
+/coverage/
+
+# Ignore Capistrano deployments
+/.capistrano/
+
+# Ignore backup files
+*.swp
+*~

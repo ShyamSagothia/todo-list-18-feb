@@ -64,6 +64,7 @@ end
 gem 'aasm'
 gem 'devise'
 gem 'devise_token_auth'
+gem 'pry'
 gem 'pundit'
 
 gem 'pg', '>= 1.2', '< 2.0' # PostgreSQL adapter, compatible with Rails 8
