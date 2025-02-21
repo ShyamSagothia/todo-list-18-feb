@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_063718) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_19_090312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "collaborations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "todo_list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["todo_list_id"], name: "index_collaborations_on_todo_list_id"
+    t.index ["user_id"], name: "index_collaborations_on_user_id"
+  end
 
   create_table "todo_lists", force: :cascade do |t|
     t.string "name"
@@ -59,5 +68,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_063718) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "collaborations", "todo_lists"
+  add_foreign_key "collaborations", "users"
   add_foreign_key "todo_lists", "users"
 end

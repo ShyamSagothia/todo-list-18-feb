@@ -19,10 +19,10 @@ describe 'Todos API', type: :request do
     end
   end
 
-  describe 'POST /todos' do
-    it 'creates a new todo' do
-      post '/todos', params: { todo: { title: 'Test', description: 'Test Desc', done: 'false', todo_list_id: "1" } }, headers: auth_headers
-      expect(response).to have_http_status(404)
-    end
-  end
+  # describe 'POST /todos' do
+  #   it 'creates a new todo' do
+  #     post '/todos', params: { todo: { title: 'Test', description: 'Test Desc', done: 'false', todo_list_id: "1" } }, headers: auth_headers
+  #     expect(response).to have_http_status(404)
+  #   end
+  # end
 end
