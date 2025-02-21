@@ -85,6 +85,7 @@ GEM
     brakeman (7.0.0)
       racc
     builder (3.3.0)
+    coderay (1.1.3)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
     crass (1.0.6)
@@ -151,6 +152,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.25.4)
     msgpack (1.8.0)
@@ -193,11 +195,16 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    pry (0.15.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     psych (5.2.3)
       date
       stringio
     puma (6.6.0)
       nio4r (~> 2.0)
+    pundit (2.4.0)
+      activesupport (>= 3.0.0)
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.10)
@@ -294,10 +301,6 @@ GEM
       rubocop-rails
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
-    shoulda (4.0.0)
-      shoulda-context (~> 2.0)
-      shoulda-matchers (~> 4.0)
-    shoulda-context (2.0.0)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
     solid_cable (3.0.7)
@@ -367,11 +370,13 @@ DEPENDENCIES
   jsonapi-serializer
   kamal
   pg (~> 1.1)
+  pry
   puma (>= 5.0)
+  pundit (~> 2.4)
   rails (~> 8.0.1)
   rspec-rails
   rubocop-rails-omakase
-  shoulda (~> 4.0)
+  shoulda-matchers
   solid_cable
   solid_cache
   solid_queue

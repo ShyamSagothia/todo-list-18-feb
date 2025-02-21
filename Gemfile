@@ -43,6 +43,8 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
+  gem "pry"
+
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
@@ -50,9 +52,11 @@ group :development, :test do
 
   gem "factory_bot_rails"
 
-  gem "shoulda", "~> 4.0"
-
   gem "jsonapi-serializer"
+
+  gem 'shoulda-matchers'
 end
 
 gem 'aasm'
+
+gem "pundit", "~> 2.4"
