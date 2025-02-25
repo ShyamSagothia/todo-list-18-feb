@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
 
   has_many :todo_lists
   has_many :collaborators
+  has_many :todo_lists, through: :collaborators
   validates :email, presence: true, uniqueness: true
+
+
 
 end
