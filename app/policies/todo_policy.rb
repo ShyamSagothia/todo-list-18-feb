@@ -40,9 +40,7 @@ class TodoPolicy
     end
 
     def resolve
-      
-      # binding.pry
-      
+
       scope.left_joins(todo_list: :collaborators)
         .where(todo_list: { user_id: user.id })
           .or(scope.where(collaborators: { user_id: user.id }))
