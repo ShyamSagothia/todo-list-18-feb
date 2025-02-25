@@ -27,7 +27,7 @@ class Api::V1::TodosController < ApplicationController
     todo = @todo_list.todos.create(todo_params)
     authorize todo
     if todo.valid?
-      render json: todo, status: 201
+      render json: TodoDetailedSerializer.new(todo).serialize
     else
       render json: { errors: todo.errors.full_messages }, status: :not_acceptable
     end
@@ -37,7 +37,7 @@ class Api::V1::TodosController < ApplicationController
     todo = policy_scope(Todo).find_by(id: params[:id])
     authorize todo
     if todo.update!(todo_params)
-      render json: todo, status: 200
+      render json: TodoDetailedSerializer.new(todo).serialize
     else
       render json: todo.errors, status: unprocessable_entity
     end

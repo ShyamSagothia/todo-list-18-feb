@@ -13,9 +13,9 @@ class Api::V1::CollaboratorsController < ApplicationController
     end
 
     @collaborator = @todo_list.collaborators.new(collaborator_params)
-    
+
     if @collaborator.save! && @collaborator.valid?
-      render json: { message: 'Data created successfully', data: @collaborator }, status: 201
+      render json: CollaboratorSerializer.new(@collaborator).serialize
     else
       render json: { errors: @collaborator.errors.full_messages }, status: :not_acceptable
     end

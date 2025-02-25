@@ -20,7 +20,7 @@ class Api::V1::TodoListController < ApplicationController
     todo_list = TodoList.new(todo_list_params.merge(user_id: current_user.id))
     authorize todo_list
     if todo_list.save && todo_list.valid?
-      render json: todo_list, status: 201, serializer: TodoListSerializer
+      render json: TodoListMiniSerializer.new(todo_list).serialize
     else
       render json: { errors: todo_list.errors.full_messages }, status: :not_acceptable
     end
@@ -30,7 +30,7 @@ class Api::V1::TodoListController < ApplicationController
     @todo_list = policy_scope(TodoList).find(params[:id])
     authorize @todo_list
     if @todo_list.update!(todo_list_params)
-      render json: @todo_list, status: 200, serializer: TodoListSerializer
+      render json: TodoListMiniSerializer.new(@todo_list).serialize
     else
       render json: @todo_list.errors, status: unprocessable_entity
     end
@@ -56,12 +56,12 @@ class Api::V1::TodoListController < ApplicationController
 
   private
 
-  def find_todo_list
-    @todo_list = TodoList.find(params[:id])
-    return unless @todo_list.nil?
+  # def find_todo_list
+  #   @todo_list = TodoList.find(params[:id])
+  #   return unless @todo_list.nil?
 
-    render json: { error: 'Todo list not found' }, status: :not_found
-  end
+  #   render json: { error: 'Todo list not found' }, status: :not_found
+  # end
 
   def todo_list_params
     params.require(:todo_list).permit(:heading)
