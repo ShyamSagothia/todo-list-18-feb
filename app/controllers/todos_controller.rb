@@ -4,7 +4,7 @@ class TodosController < ApplicationController
 
   def index
     todos = policy_scope(Todo)
-    render json: todos
+    render json: TodoSerializer.new(todos, params: { detailed: false }).serialize
   end
 
   def create
@@ -12,17 +12,18 @@ class TodosController < ApplicationController
     authorize @todo
 
     if @todo.save
-      render json: @todo, status: :created
+      render json: TodoSerializer.new(@todo, params: { detailed: true }).serialize, status: :created
     else
       render json: { error: @todo.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def show
-    todo = Todo.find_by(id: params[:id])
-    if todo
-      authorize todo
-      render json: todo
+    # TODO: = Todo.find_by(id: params[:id])
+    if @todo
+      authorize @todo
+      render json: TodoSerializer.new(@todo, params: { detailed: true }).serialize
+
     else
       render json: { error: 'Todo not found' }, status: :not_found
     end
@@ -31,7 +32,7 @@ class TodosController < ApplicationController
   def update
     authorize @todo
     if @todo.update(todo_params)
-      render json: @todo
+      render json: TodoSerializer.new(@todo, params: { detailed: true }).serialize
     else
       render json: { error: @todo.errors.full_messages }, status: :unprocessable_entity
     end

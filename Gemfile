@@ -62,12 +62,12 @@ group :test do
 end
 
 gem 'aasm'
+gem 'alba'
 gem 'devise'
 gem 'devise_token_auth'
+gem 'pg', '>= 1.2', '< 2.0' # PostgreSQL adapter, compatible with Rails 8
 gem 'pry'
 gem 'pundit'
-
-gem 'pg', '>= 1.2', '< 2.0' # PostgreSQL adapter, compatible with Rails 8
 
 group :development, :test do
   gem 'factory_bot_rails', '~> 6.2' # Factory Bot for testing

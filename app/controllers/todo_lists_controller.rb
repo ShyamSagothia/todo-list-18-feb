@@ -3,12 +3,22 @@ class TodoListsController < ApplicationController
   before_action :set_todo_list, only: %i[show update destroy]
 
   def index
-    todo_lists = policy_scope(TodoList).includes(:todos)
-    render json: todo_lists
+    # todo_lists = policy_scope(TodoList).includes(:user, :todos)
+    # render json: TodoListSerializer.new(todo_lists).serialize
+    @todo_lists = TodoList
+                  .left_joins(:collaborations) # Ensures collaborations is included
+                  .where('todo_lists.user_id = ? OR collaborations.user_id = ?', current_user.id, current_user.id)
+                  .distinct
+    # render json: @todo_lists.as_json(only: %i[id name],
+    #                                  include: { todos: { only: %i[id title done] } })
+    render json: TodoListSerializer.new(@todo_lists, params: { detailed: false }).serialize
   end
 
   def create
     todo_list = current_user.todo_lists.new(todo_list_params.except(:collaborator_ids))
+    if todo_list_params[:collaborator_ids]&.include?(current_user.id.to_s)
+      return render json: { error: 'Owner cannot be a collaborator' }, status: :unprocessable_entity
+    end
 
     todo_list.collaborator_ids = todo_list_params[:collaborator_ids]
     # todo_list = current_user.todo_lists.create(todo_list_params) # todo_list = current_user.todo_lists.create()
@@ -20,7 +30,7 @@ class TodoListsController < ApplicationController
         end
       end
 
-      render json: todo_list, status: :created
+      render json: TodoListSerializer.new(todo_list, params: { detailed: true }).serialize, status: :created
     else
       render json: { error: todo_list.errors.full_messages }, status: :unprocessable_entity
     end
@@ -30,7 +40,8 @@ class TodoListsController < ApplicationController
     # todo_list = current_user.todo_lists.includes(:todos).find_by(id: params[:id])
     authorize @todo_list
     if @todo_list
-      render json: @todo_list
+      render json: TodoListSerializer.new(@todo_list, params: { detailed: true }).serialize
+
     else
       render json: { error: 'Todo List not found' }, status: :not_found
     end
@@ -39,7 +50,7 @@ class TodoListsController < ApplicationController
   def update
     authorize @todo_list
     if @todo_list.update(todo_list_params)
-      render json: @todo_list
+      render json: TodoListSerializer.new(@todo_list, params: { detailed: true }).serialize
     else
       render json: { error: @todo_list.errors.full_messages }, status: :unprocessable_entity
     end

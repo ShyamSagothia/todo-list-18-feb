@@ -10,65 +10,65 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_19_090312) do
+ActiveRecord::Schema[8.0].define(version: 20_250_219_090_312) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
+  enable_extension 'pg_catalog.plpgsql'
 
-  create_table "collaborations", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "todo_list_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["todo_list_id"], name: "index_collaborations_on_todo_list_id"
-    t.index ["user_id"], name: "index_collaborations_on_user_id"
+  create_table 'collaborations', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.bigint 'todo_list_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['todo_list_id'], name: 'index_collaborations_on_todo_list_id'
+    t.index ['user_id'], name: 'index_collaborations_on_user_id'
   end
 
-  create_table "todo_lists", force: :cascade do |t|
-    t.string "name"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_todo_lists_on_user_id"
+  create_table 'todo_lists', force: :cascade do |t|
+    t.string 'name'
+    t.bigint 'user_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['user_id'], name: 'index_todo_lists_on_user_id'
   end
 
-  create_table "todos", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.boolean "done"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "todo_list_id"
-    t.string "status", default: "pending"
-    t.index ["todo_list_id"], name: "index_todos_on_todo_list_id"
+  create_table 'todos', force: :cascade do |t|
+    t.string 'title'
+    t.text 'description'
+    t.boolean 'done'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.integer 'todo_list_id'
+    t.string 'status', default: 'pending'
+    t.index ['todo_list_id'], name: 'index_todos_on_todo_list_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "provider", default: "email", null: false
-    t.string "uid", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.boolean "allow_password_change", default: false
-    t.datetime "remember_created_at"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
-    t.string "name"
-    t.string "nickname"
-    t.string "image"
-    t.string "email"
-    t.json "tokens"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "admin"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'provider', default: 'email', null: false
+    t.string 'uid', default: '', null: false
+    t.string 'encrypted_password', default: '', null: false
+    t.string 'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.boolean 'allow_password_change', default: false
+    t.datetime 'remember_created_at'
+    t.string 'confirmation_token'
+    t.datetime 'confirmed_at'
+    t.datetime 'confirmation_sent_at'
+    t.string 'unconfirmed_email'
+    t.string 'name'
+    t.string 'nickname'
+    t.string 'image'
+    t.string 'email'
+    t.json 'tokens'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.boolean 'admin'
+    t.index ['confirmation_token'], name: 'index_users_on_confirmation_token', unique: true
+    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
+    t.index %w[uid provider], name: 'index_users_on_uid_and_provider', unique: true
   end
 
-  add_foreign_key "collaborations", "todo_lists"
-  add_foreign_key "collaborations", "users"
-  add_foreign_key "todo_lists", "users"
+  add_foreign_key 'collaborations', 'todo_lists'
+  add_foreign_key 'collaborations', 'users'
+  add_foreign_key 'todo_lists', 'users'
 end
